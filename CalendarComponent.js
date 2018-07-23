@@ -332,13 +332,16 @@ class CalendarComponent extends Component {
     }
     render() {
         return (
-            <CalendarView dataSource={this.getCalendar(this.state.yeays, this.state.month)} style={{ width: 375, height: 375, backgroundColor: '#F5FCFF', }} onLeftScroll={() => {
-                this.onRight(this.state.yeays, this.state.month + 1);
-            }} onRightScroll={() => {
-                this.onRight(this.state.yeays, this.state.month - 1);
-            }} onSelectDay={(e) => {
-                console.warn(e.nativeEvent);
-            }} />
+            <CalendarView
+                dataSource={this.getCalendar(this.state.yeays, this.state.month)} style={{ width: 375, height: 375, backgroundColor: '#F5FCFF', }} onLeftScroll={() => {
+                    this.onRight(this.state.yeays, this.state.month + 1);
+                }}
+                onRightScroll={() => {
+                    this.onRight(this.state.yeays, this.state.month - 1);
+                }}
+                onSelectDay={(e) => {
+                    console.warn(e.nativeEvent);
+                }} />
 
             // <View>
             //     {Platform.OS == 'android' ? this.renderViewPagerAndroid(this.state.yeays, this.state.month) : <ScrollView
