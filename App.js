@@ -7,9 +7,9 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, NativeModules, requireNativeComponent } from 'react-native';
+import { Dimensions, Platform, StyleSheet, Text, View, NativeModules, requireNativeComponent } from 'react-native';
 
-import Calendar from './CalendarComponent'
+import { CalendarList } from 'react-native-iber-calendars';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -19,10 +19,25 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
-  
+
   render() {
     return (
-      < Calendar/>
+      // < Calendar />
+      <View>
+        <CalendarList
+          current={'2018-08-28'}
+          // signData={this.state.signData}
+          pastScrollRange={24}
+          futureScrollRange={24}
+          onVisibleMonthsChange={(e) => {
+            console.log('eeee', e)
+          }}
+          isShowLcd={true}
+          horizontal
+          pagingEnabled
+          style={{ width: Dimensions.get('window').width, height: 375, borderBottomWidth: 1, borderBottomColor: 'black' }}
+        />
+      </View>
     );
   }
 }
