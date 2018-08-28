@@ -1,0 +1,27 @@
+{
+  "name": "react-native-iber-calendars",
+  "version": "1.0.1",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint src/ example/src",
+    "test": "jasmine src/*.spec.js && npm run lint"
+  },
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "lodash.isequal": "^4.5.0",
+    "prop-types": "^15.5.10",
+    "xdate": "^0.8.0",
+    "moment": "^2.22.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.0",
+    "jasmine": "^2.5.2",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.47.2"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
