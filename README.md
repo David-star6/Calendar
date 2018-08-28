@@ -1,6 +1,12 @@
+#使用
+
+yarn install react-native-iber-calendars;
+
 import { CalendarList } from 'react-native-iber-calendars';
 
- <CalendarList
+ 
+ <CalendarList         
+      
           current={'2018-08-28'}
           pastScrollRange={24}
           futureScrollRange={24}
@@ -10,5 +16,5 @@ import { CalendarList } from 'react-native-iber-calendars';
           isShowLcd={true}
           horizontal
           pagingEnabled
-          style={{ width: Dimensions.get('window').width, height: 375, borderBottomWidth: 1, borderBottomColor: 'black' }}
+          style={{ width: 375, height: 375, borderBottomWidth: 1, borderBottomColor: 'black' }}
         />
