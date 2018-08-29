@@ -6,6 +6,9 @@ import styleConstructor from './style';
 
 import CalendarView from './calendarView'
 
+import { xdateToData, parseDate } from '../interface';
+
+
 class CalendarListItem extends Component {
   static defaultProps = {
     hideArrows: true,
@@ -23,36 +26,15 @@ class CalendarListItem extends Component {
     return r1.toString('yyyy MM') !== r2.toString('yyyy MM') || !!(r2.propbump && r2.propbump !== r1.propbump);
   }
 
+
   render() {
     const row = this.props.item;
     if (row.getTime) {
-      return (
-        // <Calendar
-        //   theme={this.props.theme}
-        //   // style={[{height: this.props.calendarHeight, width: this.props.calendarWidth}, this.style.calendar]}
-        //   style={{ height: this.props.calendarHeight, width: this.props.calendarWidth }}
-        //   current={row}
-        //   hideArrows={this.props.hideArrows}
-        //   hideExtraDays={this.props.hideExtraDays}
-        //   disableMonthChange
-        //   markedDates={this.props.markedDates}
-        //   markingType={this.props.markingType}
-        //   hideDayNames={this.props.hideDayNames}
-        //   onDayPress={this.props.onDayPress}
-        //   onDayLongPress={this.props.onDayLongPress}
-        //   displayLoadingIndicator={this.props.displayLoadingIndicator}
-        //   minDate={this.props.minDate}
-        //   maxDate={this.props.maxDate}
-        //   firstDay={this.props.firstDay}
-        //   monthFormat={this.props.monthFormat}
-        //   dayComponent={this.props.dayComponent}
-        //   disabledByDefault={this.props.disabledByDefault}
-        //   showWeekNumbers={this.props.showWeekNumbers}
-        // />);
-        <CalendarView
-          {...this.props}
-          current={row}
-        />)
+      return <CalendarView
+        // {...this.props.style}
+        {...this.props}
+        current={row}
+      />
     } else {
       const text = row.toString();
       return (

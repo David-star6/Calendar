@@ -54,14 +54,15 @@ class CalendarList extends Component {
     signInavalidColor: PropTypes.string,
     textColor: PropTypes.string,
     lcdColor: PropTypes.string,
-    textSelectColor: PropTypes.string
+    textSelectColor: PropTypes.string,
+    onSelectDate: PropTypes.any
   };
 
   static defaultProps = {
     signData: {},
     horizontal: false,
     calendarWidth: width,
-    calendarHeight: 360,
+    calendarHeight: 307,
     pastScrollRange: 50,
     futureScrollRange: 50,
     showScrollIndicator: false,
@@ -73,7 +74,7 @@ class CalendarList extends Component {
   constructor(props) {
     super(props);
     this.style = styleConstructor(props.theme);
-
+    this.visibleMonth = ''
     const rows = [];
     const texts = [];
     const date = parseDate(props.current) || XDate();
@@ -144,7 +145,7 @@ class CalendarList extends Component {
     const current = parseDate(this.props.current);
     const nextCurrent = parseDate(props.current);
     if (nextCurrent && current && nextCurrent.getTime() !== current.getTime()) {
-      this.scrollToMonth(nextCurrent);
+      // this.scrollToMonth(nextCurrent);
     }
 
     const rowclone = this.state.rows;
@@ -189,7 +190,8 @@ class CalendarList extends Component {
       }
     }
     if (this.props.onVisibleMonthsChange) {
-      this.props.onVisibleMonthsChange(visibleMonths);
+      // this.props.onVisibleMonthsChange(visibleMonths);
+      this.visibleMonth = visibleMonths
     }
     this.setState({
       rows: newrows
@@ -213,10 +215,10 @@ class CalendarList extends Component {
   render() {
     return (
       <FlatList
+        {...this.props.style}
         onLayout={this.onLayout}
         ref={(c) => this.listView = c}
         //scrollEventThrottle={1000}
-        style={[this.style.container, this.props.style]}
         initialListSize={this.pastScrollRange + this.futureScrollRange + 1}
         data={this.state.rows}
         //snapToAlignment='start'
@@ -234,6 +236,12 @@ class CalendarList extends Component {
         initialScrollIndex={this.state.openDate ? this.getMonthIndex(this.state.openDate) : false}
         getItemLayout={this.getItemLayout}
         scrollsToTop={this.props.scrollsToTop}
+        onScrollBeginDrag={() => {
+          this.props.onScrollBeginDrag && this.props.onScrollBeginDrag('')
+        }}
+        onMomentumScrollEnd={() => {
+          this.props.onVisibleMonthsChange && this.props.onVisibleMonthsChange(this.visibleMonth);
+        }}
       />
     );
   }

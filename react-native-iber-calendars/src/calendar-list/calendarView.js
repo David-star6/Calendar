@@ -28,12 +28,11 @@ class calendarView extends Component {
         } else {
             currentMonth = XDate();
         }
-        let select = this.todoSelectDay(currentMonth)
+        let select = this.props.selectDate ? this.props.selectDate.yeays == currentMonth.getFullYear() && this.props.selectDate.month == (currentMonth.getMonth() + 1) ? this.props.selectDate.day : '' : ''
         this.state = {
             currentMonth,
             select,
         };
-
     }
 
 
@@ -98,6 +97,25 @@ class calendarView extends Component {
         return yearMonth
     }
 
+    componentWillReceiveProps(props) {
+        // console.log('aqss')
+        // toSelectToday
+        props.toSelectToday && this.backToday(props.toSelectToday)
+        // alert(props.toSelectToday)
+    }
+
+    backToday(toSelectToday) {
+        let today = new Date()
+        if (today.getFullYear() == this.state.currentMonth.getFullYear() && today.getMonth() == this.state.currentMonth.getMonth()) {
+            this.setState({
+                select: today.getDate()
+            })
+        } else {
+            this.setState({
+                select: 1
+            })
+        }
+    }
 
     todoSelectDay(date) {
         let today = new Date()
@@ -133,7 +151,9 @@ class calendarView extends Component {
                 this.setState({
                     select: value
                 }, () => {
-                    console.log('selects', this.state.select)
+                    // onSelectDate: PropTypes.any
+                    let date = this.state.currentMonth.getFullYear() + '-' + parseInt(this.state.currentMonth.getMonth() + 1) + '-' + value
+                    this.props.onSelectDate && this.props.onSelectDate(xdateToData(new Date(date.replace(/-/g, "/"))))
                 })
             }} />
     }
@@ -149,7 +169,7 @@ class calendarView extends Component {
     renderContain(e) {
         let selfweek = [];
         let selfdays = this.getWeeks(this.state.currentMonth.getFullYear(), this.state.currentMonth.getMonth() + 1).week
-        size = { 'height': this.props.style.height / (selfdays.length + 1), 'width': this.props.style.width / 7 }
+        size = { 'height': this.props.style.height / (selfdays.length), 'width': this.props.style.width / 7 }
         while (selfdays.length) {
             selfweek.push(this.renderSelfWeek(selfdays.splice(0, 1), selfweek.length, size))
         }
@@ -158,17 +178,6 @@ class calendarView extends Component {
 
     render() {
         return <View {...this.props.style}>
-            {/* <TouchableOpacity style={{ marginTop: 20 }} onPress={() => {
-                this.setState({
-                    select: 12
-                }, () => {
-                    console.log(this.state.select)
-                })
-            }}>
-                <Text>diansdjis</Text>
-            </TouchableOpacity>
-            // {this.state.select == 12 ? <Text style={{ fontSize: 18 }}>{this.state.select}</Text> : null} */}
-            <Text>{this.state.select}</Text>
             <View>{this.renderContain(this.state.select)}</View>
         </View>
     }
