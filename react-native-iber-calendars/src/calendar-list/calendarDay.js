@@ -41,13 +41,25 @@ class calendarDay extends Component {
         super(props)
         this.itemSize = this.props.itemSizeHeight > this.props.itemSizeWidth ? this.props.itemSizeWidth : this.props.itemSizeHeight
         this.state = {
-            isSelect: this.judegeisSelect(this.props.select, this.props.data.day)
+            isSelect: this.judegeisSelect(this.props.select, this.props.data.day),
+            signleColor: 'gray'
         }
     }
 
     isSigleDay(day, time) {
         let key = parseDateWithString(this.props.years, this.props.month, day)
+        this.props.signData && this.props.signData.hasOwnProperty(key) ? this.props.signData[key].map((item, index) => {
+            this.signleColor == 'gray' && parseInt(item.status) == 0 ? this.signleColor = 'red' : null
+        }) : ''
         return this.props.signData && this.props.signData.hasOwnProperty(key) ? true : false
+    }
+
+    getSignColor(day, color) {
+        let key = parseDateWithString(this.props.years, this.props.month, day)
+        this.props.signData && this.props.signData.hasOwnProperty(key) ? this.props.signData[key].map((item, index) => {
+            parseInt(item.status) == 0 && color == 'gray' ? color = 'red' : null
+        }) : ''
+        return color
     }
 
     judegeisSelect(select, data) {
@@ -67,7 +79,7 @@ class calendarDay extends Component {
             <View style={{ alignItems: 'center' }}>
                 <Text style={{ fontSize: this.props.textSize, color: this.props.select == item.day ? this.props.textSelectColor : this.props.textColor }}>{item.day}</Text>
                 {this.props.isShowLcd ? <Text numberOfLines={2} style={{ fontSize: this.props.lcdSize, color: this.props.select == item.day ? this.props.textSelectColor : item.festival ? this.props.festivalColor : this.props.lcdColor }}>{item.festival ? item.festival : item.lcd}</Text> : null}
-                {this.props.isShowLcd && this.isSigleDay(item.day, item.time) ? <View style={{ marginTop: 4, borderRadius: 2, width: 4, height: 4, backgroundColor: 'red' }}></View> : null}
+                {this.props.isShowLcd && this.isSigleDay(item.day, item.time) ? <View style={{ marginTop: 4, borderRadius: 2, width: 4, height: 4, backgroundColor: this.getSignColor(item.day, this.state.signleColor) }}></View> : null}
             </View>
         </TouchableOpacity>
     }
