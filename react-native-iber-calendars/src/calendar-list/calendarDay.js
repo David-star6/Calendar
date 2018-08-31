@@ -39,7 +39,7 @@ class calendarDay extends Component {
 
     constructor(props) {
         super(props)
-        this.itemSize = this.props.itemSizeHeight > this.props.itemSizeWidth ? this.props.itemSizeWidth : this.props.itemSizeHeight
+        this.itemSize = this.props.itemSizeHeight > this.props.itemSizeWidth ? this.props.itemSizeWidth - this.props.itemSizeWidth / 10 : this.props.itemSizeHeight - this.props.itemSizeHeight / 10
         this.state = {
             isSelect: this.judegeisSelect(this.props.select, this.props.data.day),
             signleColor: 'gray'
@@ -75,7 +75,7 @@ class calendarDay extends Component {
             this.props.handleSelect && this.props.handleSelect(item.day)
         }}
         >
-            {this.props.select == item.day ? <View style={{ opacity: this.props.isShowLcd ? 0.5 : 1, position: 'absolute', top: this.props.itemSizeHeight / 12, borderRadius: this.itemSize / 2, width: this.itemSize, height: this.itemSize, backgroundColor: this.props.selectDayColor }}></View> : null}
+            {this.props.select == item.day ? <View style={{ opacity: this.props.isShowLcd ? 0.3 : 1, position: 'absolute', top: this.props.itemSizeHeight / 12, borderRadius: this.itemSize / 2, width: this.itemSize, height: this.itemSize, backgroundColor: this.props.selectDayColor }}></View> : null}
             <View style={{ alignItems: 'center' }}>
                 <Text style={{ fontSize: this.props.textSize, color: this.props.select == item.day ? this.props.textSelectColor : this.props.textColor }}>{item.day}</Text>
                 {this.props.isShowLcd ? <Text numberOfLines={2} style={{ fontSize: this.props.lcdSize, color: this.props.select == item.day ? this.props.textSelectColor : item.festival ? this.props.festivalColor : this.props.lcdColor }}>{item.festival ? item.festival : item.lcd}</Text> : null}
