@@ -18,6 +18,12 @@ function xdateToData(xdate) {
   };
 }
 
+function getParseDateStringWithString(time) {
+  let data = time.replace(/-/g, "/")
+  let date = new Date(data)
+  return date.getFullYear() + '-' + padNumber(date.getMonth() + 1) + '-' + padNumber(date.getDate())
+}
+
 function parseDateWithString(yeay, month, day) {
   // let time = new Date(String(date).length < 13 ? date * 1000 : date)
   // let month = time.getMonth() + 1;
@@ -45,6 +51,7 @@ function parseDate(d) {
 }
 
 module.exports = {
+  getParseDateStringWithString,
   parseDateWithString,
   xdateToData,
   parseDate

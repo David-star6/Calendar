@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import XDate from 'xdate';
 
-import { xdateToData, parseDate } from '../interface';
+import { xdateToData, parseDate, getParseDateStringWithString } from '../interface';
 import styleConstructor from './style';
 import dateutils from '../dateutils';
 
@@ -77,7 +77,7 @@ class CalendarList extends Component {
     this.visibleMonth = ''
     const rows = [];
     const texts = [];
-    const date = parseDate(props.current) || XDate();
+    const date = parseDate(getParseDateStringWithString(props.current)) || XDate();
     for (let i = 0; i <= this.props.pastScrollRange + this.props.futureScrollRange; i++) {
       const rangeDate = date.clone().addMonths(i - this.props.pastScrollRange, true);
       const rangeDateStr = rangeDate.toString('MMM yyyy');
